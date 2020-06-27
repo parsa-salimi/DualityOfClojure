@@ -1,6 +1,7 @@
 (ns dnf)
-(require '[clojure.core.reducers :as r])
-(require '[clojure.set :as set])
+(require '[clojure.core.reducers :as r]
+         '[clojure.math.numeric-tower :as math]
+         '[clojure.set :as set])
 
 ;a formula is a list of sets
 (defn disjunction [f g] (distinct (concat f g)))
@@ -42,8 +43,35 @@
 (def add disjunction)
 (defn mult [f g]
     (defn mult-clause [clause g] (map #(set/union clause %) g))
-     (r/fold (fn ([x y] (disjunction (mult-clause (first x) g) y))
-                ([] '())) f))
+    (defn mult-accum [f accum]
+        (if (empty? f) accum
+            (mult-accum (rest f) (disjunction (mult-clause (first f) g) accum))))
+    (freduce (mult-accum f nil)))
+(defn insert [cert pos val]
+    (if (= value 0) cert
+        (if (list? cert) (cons position cert) cert)))
+
+;Generators for the f-n and g-n functions
+(defn f-n [k]
+    (defn bigN [n] (math/expt 2 (- (* 2 n) 1)))
+    (defn vargen [a b] (range a (+ 1 b)))
+    (defn f-list [k varlist]
+        (if (= k 1) (map list varlist)
+            (let [newk (bigN (- k 1))
+                  list-1 (take newk varlist)
+                  list-2 (take newk (drop (* 1 newk) varlist))
+                  list-3 (take newk (drop (* 2 newk) varist))
+                  list-4 (take newk (drop (* 3 newk) varlist))]
+                (add (mult (f-list (- k 1) list-1) (f-list (- k 1) list-2))
+                     (mult (f-list (- k 1) list-3) (f-list (- k 1) list-4))))))
+    (f-list k (vargen 1 (bigN k))))
+(defn g-n [k]
+    (defn bigN [n] (math/expt 2 (- (* 2 n) 1)))
+    (defn vargen [a b] (range a (+ 1 b)))
+    (defn
+
+)
+     
 
 
         
