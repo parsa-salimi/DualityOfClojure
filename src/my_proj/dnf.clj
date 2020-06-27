@@ -1,5 +1,6 @@
 (ns dnf)
 (require '[clojure.core.reducers :as r])
+(require '[clojure.set :as set])
 
 ;a formula is a list of sets
 (defn disjunction [f g] (distinct (concat f g)))
@@ -25,19 +26,28 @@
                   ([]  (first f)))
     (if (empty? f) nil
         (r/fold combine f)))
-(defn reduce [f]
+(defn freduce [f]
     (defn minimal? [clause f]
         (if (empty? f) true
-            (and (not (clojure.set/subset? (first f) clause))
+            (and (not (set/subset? (first f) clause))
                  (minimal? clause (rest f)))))
     (defn reduce-help [num f]
         (cond
             (= num (count f)) nil
-            (minimal? (nth f num) (remove #(= % (nth f num)) f))  (conj (nth f num) (reduce-help (+ num 1) f))
+            (minimal? (nth f num) (remove #(= % (nth f num)) f))  (cons (nth f num) (reduce-help (+ num 1) f))
             :else (reduce-help (+ num 1) f)))
     (if (some empty? f) '(#{})
         (reduce-help 0 (distinct f))))
-(reduce '(#{1 2} #{1 2} #{1 2 3}))  
+
+(def add disjunction)
+(defn mult [f g]
+    (defn mult-clause [clause g] (map #(set/union clause %) g))
+     (r/fold (fn ([x y] (disjunction (mult-clause (first x) g) y))
+                ([] '())) f))
+
+
+        
+ 
 
 
 
