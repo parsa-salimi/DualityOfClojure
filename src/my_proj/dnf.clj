@@ -1,7 +1,7 @@
 (ns dnf)
-(require '[clojure.core.reducers :as r]
-         '[clojure.math.numeric-tower :as math]
-         '[clojure.set :as set])
+(require '[clojure.core.reducers :as r])
+(require [clojure.math.numeric-tower :as math])
+(require '[clojure.set :as set])
 
 ;a formula is a list of sets
 (defn disjunction [f g] (distinct (concat f g)))
