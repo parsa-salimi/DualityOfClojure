@@ -68,9 +68,17 @@
 (defn g-n [k]
     (defn bigN [n] (math/expt 2 (- (* 2 n) 1)))
     (defn vargen [a b] (range a (+ 1 b)))
-    (defn
+    (defn g-list [k varlist]
+        (if (= k 1) (list varlist)
+            (let [newk (bigN (- k 1))
+                  list-1 (take newk varlist)
+                  list-2 (take newk (drop (* 1 newk) varlist))
+                  list-3 (take newk (drop (* 2 newk) varist))
+                  list-4 (take newk (drop (* 3 newk) varlist))]
+            (mult (add (g-list (- k 1) list-1) (g-list (- k 1) list-2))
+                  (add (g-list (- k 1) list-3) (g-list (- k 1) list-4))))))
+    (g-list k (vargen (bigN k))))
 
-)
      
 
 
