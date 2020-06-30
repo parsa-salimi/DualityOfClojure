@@ -6,7 +6,7 @@
 ;a formula is a list of sets
 (defn disjunction [f g] (distinct (concat f g)))
 (def clause-len count)
-(defn vars [f] (distinct (flatten f)))
+(defn vars [f] (into #{} (distinct (flatten f))))
 (defn remove-clause [f x]
     (cond   
             (empty? f) nil
@@ -27,7 +27,7 @@
                   ([]  (first f)))
     (if (empty? f) nil
         (r/fold combine f)))
-(defn reduce [f]
+(defn freduce [f]
     (defn minimal? [clause f]
         (if (empty? f) true
             (and (not (set/subset? (first f) clause))
