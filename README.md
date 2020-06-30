@@ -1,32 +1,18 @@
 # my-proj
-
-FIXME: description
+A purely functional implementation of my dualization code, original repo here: https://github.com/parsa-salimi/DualityOfFunction
+    
+    
 
 ## Installation
-
-Download from http://example.com/FIXME.
+Build with leiningen
 
 ## Usage
 
-FIXME: explanation
+To be added. Planning on making a domain specific language
 
-    $ java -jar my-proj-0.1.0-standalone.jar [args]
 
-## Options
 
-FIXME: listing of options this app accepts.
 
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
 
 ## License
 
