@@ -27,7 +27,7 @@
                   ([]  (first f)))
     (if (empty? f) nil
         (r/fold combine f)))
-(defn freduce [f]
+(defn reduce [f]
     (defn minimal? [clause f]
         (if (empty? f) true
             (and (not (set/subset? (first f) clause))
@@ -46,7 +46,7 @@
     (defn mult-accum [f accum]
         (if (empty? f) accum
             (mult-accum (rest f) (disjunction (mult-clause (first f) g) accum))))
-    (freduce (mult-accum f nil)))
+    (reduce (mult-accum f nil)))
 (defn insert [cert pos val]
     (if (= val 0) cert
         (if (list? cert) (cons pos cert) cert)))
@@ -78,6 +78,7 @@
             (mult (add (g-list (- k 1) list-1) (g-list (- k 1) list-2))
                   (add (g-list (- k 1) list-3) (g-list (- k 1) list-4))))))
     (g-list k (vargen 1 (bigN k))))
+
 
      
 
