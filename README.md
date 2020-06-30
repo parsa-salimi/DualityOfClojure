@@ -1,5 +1,5 @@
 # my-proj
-    A purely functional implementation of my dualization code, original repo here: https://github.com/parsa-salimi/DualityOfFunction
+A purely functional implementation of my dualization code, original repo here: https://github.com/parsa-salimi/DualityOfFunction
     
     
 
