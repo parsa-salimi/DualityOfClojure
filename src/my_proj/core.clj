@@ -1,4 +1,5 @@
 (load "my_proj/dnf")
+(load "my_proj/fk")
 (ns my-proj.core
   (:gen-class))
 

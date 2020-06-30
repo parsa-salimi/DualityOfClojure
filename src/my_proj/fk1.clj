@@ -1,2 +1,0 @@
-(load "dnf")
-(ns fk)
