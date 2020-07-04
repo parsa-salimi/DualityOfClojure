@@ -6,17 +6,17 @@
 ;a formula is a list of sets
 (defn disjunction [f g] (distinct (concat f g)))
 (def clause-len count)
-(defn vars [f] (into #{} (distinct (flatten f))))
+(defn vars [f] (apply set/union f))
 (defn remove-clause [f x]
     (cond   
             (empty? f) nil
             (some #(= x %) (first f)) (remove-clause (rest f) x)
-            :else (conj (first f) (remove-clause (rest f) x))))
+            :else (cons (first f) (remove-clause (rest f) x))))
 (defn remove-var [f x]
     (cond
         (empty? f) nil
         (some #(= x %) (first f)) (cons (into #{} (remove #(= x %) (first f))) (remove-var (rest f) x))
-        :else (conj (first f) (remove-var (rest f) x))))
+        :else (cons (first f) (remove-var (rest f) x))))
 (defn minimum-clause [f]
     (defn combine ([x accum] (if (< (count x) (count accum)) x accum))
                   ([]  (first f)))
@@ -46,7 +46,7 @@
     (defn mult-accum [f accum]
         (if (empty? f) accum
             (mult-accum (rest f) (disjunction (mult-clause (first f) g) accum))))
-    (reduce (mult-accum f nil)))
+    (freduce (mult-accum f nil)))
 (defn insert [cert pos val]
     (if (= val 0) cert
         (if (list? cert) (cons pos cert) cert)))
